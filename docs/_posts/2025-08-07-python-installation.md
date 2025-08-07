@@ -4,7 +4,7 @@ title: "Python 설치 및 설정"
 date: 2025-08-07
 ---
 
-# Python 설치 및 설
+# Python 설치 및 설정
 
 1. python 공식 홈페이지 접속 (https://www.python.org/downloads/)
 
