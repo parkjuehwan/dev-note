@@ -1,3 +1,9 @@
+---
+layout: post
+title: "VSCode 설치 및 개발 환경 설정"
+date: 2025-08-07
+---
+
 # Visual Studio Code 설치 및 개발 환경 설정 (Python + GitHub Copilot)
 
 이 문서는 Windows 기준으로 VSCode 설치, Python 개발 환경 구성, GitHub Copilot 연결까지의 전체 과정을 설명합니다.
