@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "네이버 데이터랩 API 연동 및 Streamlit 대시보드 구축"
-date: 2025-08-08
+date: 2025-08-07
 ---
 
 ## 개요
