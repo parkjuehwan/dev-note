@@ -23,7 +23,7 @@ date: 2025-08-07
 
 > 참고: 실제 운영 시에는 해당 키를 코드에 직접 노출하지 않고 환경 변수로 관리하는 것이 권장된다.
 
-<img width="1375" height="887" alt="image" src="https://github.com/user-attachments/assets/644d31a9-b417-4a8e-8a8e-a7e58bd93eea" />
+<img width="1375" height="887" alt="image" src="https://github.com/user-attachments/assets/644d31a9-b417-4a8e-8a8e-a7e58bd93eea" style="width: 100%; height: auto;" />
 
 
 ---
@@ -44,7 +44,7 @@ date: 2025-08-07
 - 평균값, 최대값, 계절별 비교 등 통계 분석
 - 분석 결과 CSV 다운로드
 
-<img width="1379" height="845" alt="image" src="https://github.com/user-attachments/assets/dd24af57-1fed-4349-9a82-9ee0628e2da5" />
+<img width="1379" height="845" alt="image" src="https://github.com/user-attachments/assets/dd24af57-1fed-4349-9a82-9ee0628e2da5" style="width: 100%; height: auto;" />
 
 
 ---
@@ -86,9 +86,9 @@ streamlit run streamlit_dashboard.py
 - 월별 데이터를 바탕으로 한 계절별 검색량 분석  
 - 데이터 테이블 및 다운로드 기능  
 
-<img width="1584" height="830" alt="image" src="https://github.com/user-attachments/assets/d56eb24a-fcf0-49ef-b853-5d803772e4ae" />
-<img width="1518" height="608" alt="image" src="https://github.com/user-attachments/assets/2ab3b7fd-f257-4606-8739-bb04c5b6f144" />
-<img width="1010" height="371" alt="image" src="https://github.com/user-attachments/assets/3a042eb1-5c09-469a-8f58-94c111a35c06" />
+<img width="1584" height="830" alt="image" src="https://github.com/user-attachments/assets/d56eb24a-fcf0-49ef-b853-5d803772e4ae" style="width: 100%; height: auto;" />
+<img width="1518" height="608" alt="image" src="https://github.com/user-attachments/assets/2ab3b7fd-f257-4606-8739-bb04c5b6f144" style="width: 100%; height: auto;" />
+<img width="1010" height="371" alt="image" src="https://github.com/user-attachments/assets/3a042eb1-5c09-469a-8f58-94c111a35c06" style="width: 100%; height: auto;" />
 
 
 ---
