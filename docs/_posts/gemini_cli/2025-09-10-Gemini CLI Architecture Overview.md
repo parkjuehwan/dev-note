@@ -2,6 +2,7 @@
 layout: post
 title: "Gemini CLI 아키텍처 개요"
 date: 2025-09-10
+categories: [Gemini_CLI]
 ---
 
 # Gemini CLI 아키텍처 개요
