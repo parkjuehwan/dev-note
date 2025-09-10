@@ -1,52 +1,62 @@
+---
+layout: post
+title: "Gemini CLI 아키텍처 개요"
+date: 2025-09-10
+---
 
+# Gemini CLI 아키텍처 개요
+이 문서는 Gemini CLI의 아키텍처에 대한 고수준 개요를 제공합니다.
 
+## 핵심 구성 요소
+Gemini CLI는 기본적으로 두 개의 주요 패키지와, 명령줄 입력을 처리하는 과정에서 사용할 수 있는 도구들로 구성됩니다.
 
-Gemini CLI Architecture Overview
-This document provides a high-level overview of the Gemini CLI's architecture.
+### CLI 패키지 (`packages/cli`)
+- **목적**: Gemini CLI의 사용자 인터페이스 부분을 포함합니다. 초기 사용자 입력 처리, 최종 출력 표시, 전체적인 사용자 경험 관리를 담당합니다.  
+- **주요 기능**:
+  - 입력 처리  
+  - 히스토리 관리  
+  - 출력 렌더링  
+  - 테마 및 UI 사용자화  
+  - CLI 설정 관리  
 
-Core components
-The Gemini CLI is primarily composed of two main packages, along with a suite of tools that can be used by the system in the course of handling command-line input:
+### Core 패키지 (`packages/core`)
+- **목적**: Gemini CLI의 백엔드 역할을 합니다. `packages/cli`로부터 요청을 받아 Gemini API와의 상호작용을 조율하고, 사용 가능한 도구 실행을 관리합니다.  
+- **주요 기능**:
+  - Google Gemini API와 통신하기 위한 API 클라이언트  
+  - 프롬프트 생성 및 관리  
+  - 도구 등록 및 실행 로직  
+  - 대화/세션 상태 관리  
+  - 서버 측 설정  
 
-CLI package (packages/cli):
+### 도구 (`packages/core/src/tools/`)
+- **목적**: Gemini 모델의 기능을 확장하는 개별 모듈로, 로컬 환경(예: 파일 시스템, 셸 명령어, 웹 가져오기)과 상호작용할 수 있도록 합니다.  
+- **상호작용**: `packages/core`는 Gemini 모델의 요청에 따라 이러한 도구들을 호출합니다.  
 
-Purpose: This contains the user-facing portion of the Gemini CLI, such as handling the initial user input, presenting the final output, and managing the overall user experience.
-Key functions contained in the package:
-Input processing
-History management
-Display rendering
-Theme and UI customization
-CLI configuration settings
-Core package (packages/core):
+---
 
-Purpose: This acts as the backend for the Gemini CLI. It receives requests sent from packages/cli, orchestrates interactions with the Gemini API, and manages the execution of available tools.
-Key functions contained in the package:
-API client for communicating with the Google Gemini API
-Prompt construction and management
-Tool registration and execution logic
-State management for conversations or sessions
-Server-side configuration
-Tools (packages/core/src/tools/):
+## 상호작용 흐름
+Gemini CLI의 일반적인 상호작용 흐름은 다음과 같습니다:
 
-Purpose: These are individual modules that extend the capabilities of the Gemini model, allowing it to interact with the local environment (e.g., file system, shell commands, web fetching).
-Interaction: packages/core invokes these tools based on requests from the Gemini model.
-Interaction Flow
-A typical interaction with the Gemini CLI follows this flow:
+1. **사용자 입력**: 사용자가 터미널에 프롬프트나 명령어를 입력하면, `packages/cli`에서 이를 처리합니다.  
+2. **Core로 요청 전달**: `packages/cli`는 입력을 `packages/core`로 전달합니다.  
+3. **요청 처리**: Core 패키지는 다음을 수행합니다:  
+   - 대화 히스토리 및 사용 가능한 도구 정의를 포함해 Gemini API에 적합한 프롬프트를 구성합니다.  
+   - 프롬프트를 Gemini API로 전송합니다.  
+4. **Gemini API 응답**: Gemini API는 프롬프트를 처리한 후 응답을 반환합니다. 응답은 직접적인 답변일 수도 있고, 사용 가능한 도구 실행 요청일 수도 있습니다.  
+5. **도구 실행 (해당되는 경우)**:  
+   - Gemini API가 도구 실행을 요청하면 Core 패키지는 실행을 준비합니다.  
+   - 파일 시스템 수정이나 셸 명령 실행 같은 작업은 도구와 인자 정보를 사용자에게 먼저 제공하고, 실행 승인을 받아야 합니다.  
+   - 파일 읽기와 같은 읽기 전용 작업은 명시적인 사용자 확인 없이 진행될 수 있습니다.  
+   - 승인 후(또는 승인 불필요한 경우), Core 패키지는 해당 도구를 실행하고 결과를 Gemini API로 다시 전달합니다.  
+   - Gemini API는 도구 결과를 처리하고 최종 응답을 생성합니다.  
+6. **CLI로 응답 전달**: Core 패키지는 최종 응답을 CLI 패키지로 전달합니다.  
+7. **사용자에게 표시**: CLI 패키지는 응답을 터미널에 보기 좋게 표시합니다.  
 
-User input: The user types a prompt or command into the terminal, which is managed by packages/cli.
-Request to core: packages/cli sends the user's input to packages/core.
-Request processed: The core package:
-Constructs an appropriate prompt for the Gemini API, possibly including conversation history and available tool definitions.
-Sends the prompt to the Gemini API.
-Gemini API response: The Gemini API processes the prompt and returns a response. This response might be a direct answer or a request to use one of the available tools.
-Tool execution (if applicable):
-When the Gemini API requests a tool, the core package prepares to execute it.
-If the requested tool can modify the file system or execute shell commands, the user is first given details of the tool and its arguments, and the user must approve the execution.
-Read-only operations, such as reading files, might not require explicit user confirmation to proceed.
-Once confirmed, or if confirmation is not required, the core package executes the relevant action within the relevant tool, and the result is sent back to the Gemini API by the core package.
-The Gemini API processes the tool result and generates a final response.
-Response to CLI: The core package sends the final response back to the CLI package.
-Display to user: The CLI package formats and displays the response to the user in the terminal.
-Key Design Principles
-Modularity: Separating the CLI (frontend) from the Core (backend) allows for independent development and potential future extensions (e.g., different frontends for the same backend).
-Extensibility: The tool system is designed to be extensible, allowing new capabilities to be added.
-User experience: The CLI focuses on providing a rich and interactive terminal experience.
+---
+
+## 주요 설계 원칙
+- **모듈성**: CLI(프런트엔드)와 Core(백엔드)를 분리하여 독립적인 개발 및 향후 확장(예: 동일한 백엔드를 사용하는 다양한 프런트엔드)을 가능하게 합니다.  
+- **확장성**: 도구 시스템은 새로운 기능을 쉽게 추가할 수 있도록 설계되었습니다.  
+- **사용자 경험**: CLI는 풍부하고 대화형 터미널 경험을 제공하는 데 초점을 맞춥니다.  
+
+출처 : https://github.com/google-gemini/gemini-cli/blob/main/docs/architecture.md
