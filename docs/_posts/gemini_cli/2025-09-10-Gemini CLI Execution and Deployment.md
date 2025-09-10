@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Gemini CLI Execution and Deployment"
+title: "Gemini CLI 실행 및 배포 아키텍처"
 date: 2025-09-10
 ---
 # Gemini CLI 실행 및 배포 아키텍처
