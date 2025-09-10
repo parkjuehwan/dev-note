@@ -92,3 +92,5 @@ GitHub Actions를 통해 자동화되며, 다음을 수행합니다:
 1. `tsc`로 NPM 패키지 빌드  
 2. 아티팩트 레지스트리에 NPM 패키지 배포  
 3. GitHub 릴리즈 생성 및 번들 자산 업로드  
+
+출처 : https://github.com/google-gemini/gemini-cli/blob/main/docs/deployment.md
