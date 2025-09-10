@@ -1,9 +1,9 @@
-title: Dev Note
-description: My personal dev blog
+title: "Dev Note"
+description: "My personal dev blog"
 theme: minima
 
 url: "https://parkjuehwan.github.io"
-baseurl: "/dev-note"   # 저장소 이름이 dev-note니까 이렇게 설정
+baseurl: "/dev-note"
 
 markdown: kramdown
 kramdown:
