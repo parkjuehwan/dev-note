@@ -1,3 +1,10 @@
+---
+layout: post
+title: "CLI Introduction"
+date: 2025-09-14
+categories: [Gemini_CLI]
+---
+
 # Gemini CLI
 Gemini CLI에서 `packages/cli`는 사용자가 Gemini AI 모델 및 관련 도구와 프롬프트를 주고받을 수 있는 프런트엔드 역할을 합니다.  
 Gemini CLI의 전체 개요는 메인 문서 페이지를 참고하세요.
