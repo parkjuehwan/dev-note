@@ -59,3 +59,5 @@ gemini -p "What is fine tuning?" --output-format json
   "error": null
 }
 ```
+
+출처 : https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/index.md
